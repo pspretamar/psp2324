@@ -16,7 +16,5 @@ Las entregas se harán por medio de [Google ClassRoom](https://classroom.google.
 
 ¡A por ello!
 
-![imagen](utils/cortes_in_land.jpg)
-
 *Aqui… onde a terra se acaba e o mar começa*  («Aquí donde la tierra acaba y el mar comienza», ndt; L. Vaz de Camões, Os Lusíadas, VIII)
 
