@@ -1,0 +1,769 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Python | Optimizando su velocidad</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f57fc779-1504-4c9d-8a98-4adb47e5116b" class="page sans"><header><img class="page-cover-image" src="https://image.tmdb.org/t/p/w1280/3yuB9xcQvGb7qGe2avas4Y8foBV.jpg" style="object-position:center 39.65%"/><h1 class="page-title">Python | Optimizando su velocidad</h1><p class="page-description"></p></header><div class="page-body"><p id="36d946dd-b0c9-4674-b015-062a443fe66f" class="">Ahora que conocemos Python, sabemos que es uno de los lenguajes más flexibles y entendibles que hay, lo que lo hace una herramienta muy querida para desarrolladores de muy diversos ámbitos y de campos tan distintos! </p><p id="e2f9363d-8def-4c1b-a554-418976d62463" class="">
+</p><h2 id="400919eb-e69f-47ab-8877-e0c089948f12" class="">Desafíos que encuentra Python</h2><figure id="d0461f91-b3d4-4f0a-a1bb-2692fa6ee93f" class="image"><a href="https://www.repstatic.it/content/nazionale/img/2019/11/06/192336482-7fbe6fa8-f8e2-4d68-964e-b97202d1dca7.jpg"><img src="https://www.repstatic.it/content/nazionale/img/2019/11/06/192336482-7fbe6fa8-f8e2-4d68-964e-b97202d1dca7.jpg"/></a></figure><p id="be03142a-b469-447c-ac0a-55dd5c5d7376" class="">Sin embargo, esta gran ventaja de Python que lo ha elevado a los mejores rankings de lenguajes, también le hace proclive a debilidades. En concreto, encontramos los siguientes desafíos común a muchos otros lenguajes pero que en Python se entienden muy bien:</p><ul id="0fa27b97-0a05-4c85-a760-0fa76f49b58c" class="bulleted-list"><li style="list-style-type:disc">1. <strong>Interpretación Lineal:</strong> Python es un lenguaje interpretado, lo que significa que el código se ejecuta línea por línea por el intérprete de Python. Esto puede hacer que Python sea más lento en comparación con lenguajes compilados como C o C++.</li></ul><ul id="1b4a1577-dda2-4d5f-a066-c994b80b69e9" class="bulleted-list"><li style="list-style-type:disc">2. 🔄 <strong>Tipado Dinámico:</strong> Python es tipado dinámicamente, lo que significa que los tipos de variables se determinan en tiempo de ejecución. Este tipado dinámico puede generar sobrecarga y rendimiento más lento en comparación con lenguajes tipados estáticamente. <ul id="ffadbf91-f216-431d-9e37-6596bb3cc8f4" class="bulleted-list"><li style="list-style-type:circle">Esto puede llevar a errores de tiempo de ejecución que podrían haberse detectado y corregido durante la fase de compilación en lenguajes con tipado estático.</li></ul><ul id="2b73135b-3430-4f68-9df0-c65f7b27151d" class="bulleted-list"><li style="list-style-type:circle">El tipado dinámico puede requerir más recursos de computación durante la ejecución para realizar conversiones de tipo y verificaciones dinámicas.</li></ul><ul id="bbd58aa9-46db-410f-a4cc-969abd3a4ace" class="bulleted-list"><li style="list-style-type:circle">Los compiladores y optimizadores pueden tener dificultades para realizar optimizaciones avanzadas en código Python debido al tipado dinámico, lo que podría limitar el rendimiento en comparación con lenguajes con tipado estático.</li></ul></li></ul><ul id="0e8293be-e932-407d-9428-7694d1246dd9" class="bulleted-list"><li style="list-style-type:disc">3. 🔒 <strong>Bloqueo Global del Intérprete (GIL):</strong> El propósito principal del GIL es garantizar que solo un hilo pueda ejecutar código de Python a la vez en un proceso de Python. En otras palabras, el trabajo de <strong>GIL</strong> es impedir que múltiples threads decrementen la referencia de algún objeto mientras otros están haciendo uso de ella. El GIL permite que espacios en memoria sean liberados cuando aún están siendo utilizados</li></ul><p id="1771c7d2-5b7e-43d6-a25a-4c04ebb6bb5e" class="">
+</p><h2 id="b842e37d-7373-462e-88c4-20083f476935" class="">¿Qué es el GIL?</h2><figure id="c8a4e9e2-282b-46f7-9c0a-8ffce8906d30" class="image"><a href="https://medias.spotern.com/spots/w640/253/253807-1574066276.jpg"><img src="https://medias.spotern.com/spots/w640/253/253807-1574066276.jpg"/></a></figure><p id="42dc2480-85dc-4e32-8d44-c693cc91a9d0" class="">
+</p><p id="6eb0f3df-604f-4e3d-844c-ef0a3290cb55" class="">El GIL (Global Interpreter Lock) es una característica específica de la implementación estándar de CPython, que es el intérprete de Python más comúnmente utilizado. Este bloqueo global del intérprete tiene un impacto importante en la ejecución de código en entornos multi-hilo.</p><p id="bebc0b67-a8d1-410a-bcb7-72e2a1cf8eac" class="">El GIL simplifica significativamente la implementación del intérprete de Python, ya que evita la necesidad de coordinar la ejecución de código entre múltiples hilos para garantizar la coherencia de los datos y la seguridad de la memoria compartida. Sin embargo, también tiene implicaciones en términos de rendimiento y escalabilidad en ciertos tipos de aplicaciones.</p><p id="89aa0dfe-864e-477a-afa2-7fddf427011d" class="">Es importante destacar que el GIL solo afecta la ejecución de código Python. Las operaciones de E/S (entrada/salida), como lectura/escritura de archivos o solicitudes de red, no se ven tan afectadas porque liberan el GIL mientras esperan la finalización de la operación de E/S. En cambio, en aplicaciones intensivas en CPU, donde se desea aprovechar al máximo los múltiples núcleos de la CPU, el GIL puede convertirse en un obstáculo.</p><p id="10a04d91-34c8-447a-bbbf-08ff57350e39" class="">De hecho, <strong>Guido van Rossum</strong> creador del lenguaje también conocido como el <em><strong>BDFL</strong></em><em> (Benevolent Dictator For Life)</em> ha especificado en varios correos en la lista de desarrolladores de Python que el GIL está aquí <strong>para quedarse</strong>. Pueden leerse sus argumentaciones en este <a href="http://mail.python.org/pipermail/python-3000/2007-May/007414.html">hilo</a> y en <a href="http://www.artima.com/weblogs/viewpost.jsp?thread=214235">este otro</a> donde explica que eliminar el GIL <strong>no es tan sencillo</strong> y anima a la Comunidad de desarrolladores a mantener un <em>fork</em> sin GIL si alguien se anima.</p><h2 id="1dfb3978-a4bd-4514-9e23-ae31ad589fd1" class="">Veamos un ejemplo del efecto sobre un script</h2><figure id="8d96bda2-42ee-43c7-838d-b4193e1bf8e7" class="image"><a href="https://images1.autocasion.com/actualidad/wp-content/uploads/2019/11/Gazapos-pel%C3%ADcula-le-mans-66.jpg"><img src="https://images1.autocasion.com/actualidad/wp-content/uploads/2019/11/Gazapos-pel%C3%ADcula-le-mans-66.jpg"/></a></figure><p id="f48fa2f5-05f9-47ee-8c04-01a13875580a" class="">Como hemos dicho ya, con Python al utilizar Threads nunca seremos capaces de lograr un verdadero paralelismo, ya que el lenguaje está diseñado para que un thread y solo un thread pueda ejecutarse a la vez.</p><p id="3fe4ed6a-d445-410d-bb89-11d9758b7911" class="">Veamos un ejemplo. En este caso he definido una función que lo unico que hace es decrecer su parametro(number) hasta llegar a 0.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="d009b912-bcb4-432d-8335-57ffb59a5212" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">import time
+
+def countdown(number):
+    while number &gt; 0:
+        number -=1
+
+if __name__ == &#x27;__main__&#x27;:
+    start = time.time()
+
+    count = 100000000
+    countdown(count)
+
+    print(f&#x27;Tiempo transcurrido {time.time() - start }&#x27;)</code></pre><p id="eff696ca-30b8-4375-be82-57403e8f8438" class="">Si ejecuto este script, tal y como se encuentra ahora, con un solo thread y de forma secuencial, le tomará un aproximado de 6 segundos finalizar. Todo bien, nada nuevo.</p><p id="a7def604-0bb7-4fec-8b6f-05e55ee81152" class="">Ahora, hagamos los mismo pero con dos threads. En teoría, al los threads ejecutarse de forma concurrente al script le debería tomar poco más de 6 segundos finalizar, quizás, unos milisegundos más, en teoria. 😳</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="496c6f3f-b892-45a1-a0c3-1da4be47063b" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">import time
+import threading
+
+def countdown(number):
+    while number &gt; 0:
+        number -=1
+
+if __name__ == &#x27;__main__&#x27;:
+    start = time.time()
+
+    count = 100000000
+
+    t1 = threading.Thread(target=countdown, args=(count,))
+    t2 = threading.Thread(target=countdown, args=(count,))
+
+    t1.start()
+    t2.start()
+
+    t1.join()
+    t2.join()
+
+    print(f&#x27;Tiempo transcurrido {time.time() - start }&#x27;)</code></pre><p id="ee67a27b-5075-4725-b25f-ec42e1adb2df" class="">A mi escript, de forma concurrente le toma 12 segundos finalizar, sí, el doble de tiempo a pesar de utilizar threads. 😲 Esto gracias al <strong>GIL</strong>.</p><p id="6e1e110e-acc0-439a-a4de-aed8ba24ddec" class="">
+</p><h2 id="2bb5f366-6eb9-427c-9a2d-f948771fa63f" class=""><strong>Estrategias de Optimización:</strong></h2><p id="118072b2-a4db-4f9c-a08a-3219abe7b7f1" class="">
+</p><figure id="02bc5104-ebd8-472a-816c-2e100972365d" class="image"><a href="https://image.tmdb.org/t/p/w1280/3yuB9xcQvGb7qGe2avas4Y8foBV.jpg"><img src="https://image.tmdb.org/t/p/w1280/3yuB9xcQvGb7qGe2avas4Y8foBV.jpg"/></a></figure><ol type="1" id="32c32614-e03d-4897-9329-f93ec03c731e" class="numbered-list" start="1"><li><strong>Multihilos (Multithreading) 🌟:</strong><ul id="9ab38b0e-052e-425a-9c6e-d8a9aa14dfed" class="bulleted-list"><li style="list-style-type:disc">Utilizar hilos para operaciones de E/S o tareas que liberan el GIL. Ideal cuando se necesita concurrencia sin depender totalmente del rendimiento de la CPU.</li></ul></li></ol><ol type="1" id="2e6702e2-2e20-4575-ada0-995384bba4b9" class="numbered-list" start="2"><li><strong>Multiprocesos (Multiprocessing) 💥:</strong><ul id="62f0217e-30e2-4904-be79-c740901161fe" class="bulleted-list"><li style="list-style-type:disc">Emplear procesos independientes para aprovechar al máximo los múltiples núcleos de la CPU. Beneficioso en escenarios donde la paralelización es clave para optimizar el rendimiento.</li></ul></li></ol><ol type="1" id="fbc1c312-3328-44d3-a6c5-ec3b2774d60d" class="numbered-list" start="3"><li><strong>Programación Asincrónica (Asyncio) 🚀:</strong><ul id="e9969837-fec0-4cd1-8a41-8b8f07c91dff" class="bulleted-list"><li style="list-style-type:disc">Adoptar la programación asincrónica para gestionar eficientemente operaciones de E/S y mejorar la concurrencia, ideal para aplicaciones altamente concurrentes.</li></ul></li></ol><p id="07930ef5-6e8f-4ddf-be5c-9598df562a47" class="">Estas estrategias, aplicadas con discernimiento, permiten a los desarrolladores abordar eficazmente los desafíos de rendimiento en Python, garantizando una ejecución ágil y eficiente de las aplicaciones. Con la combinación adecuada de estas herramientas, Python se convierte en una opción aún más poderosa para la creación de software de alto rendimiento.</p><p id="2dac3dac-4b27-436c-9343-ea7f7378d6c9" class="">
+</p><h2 id="a72cb1b3-27a9-41c8-a084-ab02039e7a23" class="">1 | Multihilos &gt; concurrencia</h2><figure id="9bdb55ec-8be1-4326-8a82-0a99a4d35f12" class="image"><a href="https://www.classicandsportscar.com/sites/default/files/styles/article/public/1_89.jpg?itok=-vPvoHF1"><img src="https://www.classicandsportscar.com/sites/default/files/styles/article/public/1_89.jpg?itok=-vPvoHF1"/></a></figure><p id="68a7df69-70f9-41ea-9347-11d426915f6b" class="">Lo voy a explicar con un ejemplo: imaginémonos a una persona la cual trabaja en múltiples tareas al mismo tiempo, y que rápidamente cambia de una tarea a otra. Por ejemplo, imaginemos a una persona la cual se encuentra programando, realizando cálculos en excel y contestando correos electrónicos, todo esto al mismo tiempo. Dedica un par de segundos a cada tarea, y rápidamente, con un ágil cmd + shift cambia de tarea. </p><p id="02b31e30-97f0-4736-b253-983892b0a7a1" class="">Concluimos que la persona trabaja de forma concurrente. Las tareas que realiza no necesariamente deben seguir un orden, quizás, después de contestar un correo regresa con los cálculos en excel, le dedica un par de segundo, regresa a responder otro correo y finaliza con la codificación del programa, u, otro escenario pudiera ser que después finalizar ciertos cálculos, la persona continua codeando un par de segundos para después responder un par de correos y regresar con los cálculos.</p><p id="c127127e-85b2-4107-8a14-09a7cfacd986" class="">Al contrario que una estructura secuencial, con la concurrencia el orden en que se ejeuctan las tareas importa muy poco. </p><p id="9fe921c8-6c4e-4df0-acd0-4d8b52e98ecb" class="">En código:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3f6216f7-3486-41bf-a9f2-04dfc3f82231" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">import time
+import threading
+
+def codificar():
+    time.sleep(2)
+
+    print(f&#x27;Codificando&#x27;)
+
+def responder_correos():
+    time.sleep(2)
+
+    print(f&#x27;Respondiendo correos&#x27;)
+
+def realizar_calculos():
+    time.sleep(2)
+
+    print(f&#x27;Realizar los calculos&#x27;)
+
+
+threading.Thread(target=codificar).start()
+threading.Thread(target=responder_correos).start()
+threading.Thread(target=realizar_calculos).start()</code></pre><p id="4754645f-fd0a-4356-975b-e9d90c82938c" class="">En este caso nuestro programa realiza tres tareas al mismo tiempo. A cada tarea le tomó un máximo de dos segundos ser completada, como se ejecutan de forma concurrente (al mismo tiempo) al programa le toma dos segundo finalizar su ejecución. Por otro lado, si ejecutamos el mismo código, pero ahora de forma secuencial, al programa le tomaría seis segundos finalizar. El tiempo es sin duda considerable.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="faec02c7-167f-4ae8-b0b4-f213cb7b4a54" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">#secuencial
+
+codificar()
+responder_correos()
+realizar_calculos()</code></pre><p id="c5bbd700-5b08-4437-9a80-1327e3ad0b51" class="">Por medio de los multihilos un procesador puede ejecutar diversos hilos de forma concurrente. En un simple CPU esto se consigue activando y desactivando hilos (context switching). En context switching, el estado de un hilo se guarda en cuanto se interrumpe, y se carga otro hilo. Context switching es tan frecuente que parece que diversos hilos se ejecutan de forma paralela. </p><h2 id="cf400991-85ce-4988-8a8f-72bb0825f370" class="">2 | Multiprocesos &gt; paralelismo</h2><figure id="01bad919-a724-429c-8b12-0f8bfe9563af" class="image"><a href="https://api.lemans.org/media/cache/api_news_large/assets/fileuploads/64/70/647077aca34fb.jpg"><img src="https://api.lemans.org/media/cache/api_news_large/assets/fileuploads/64/70/647077aca34fb.jpg"/></a></figure><p id="c56e1e55-e3b3-463c-8ae7-c8d6cdff3ea1" class="">
+</p><p id="102fe0b2-d850-46b0-90ff-06627c22003c" class="">Bien, ya tenemos claro que es la estructura secuencial y que es la concurrencia, ahora, ¿De qué va el paralelismo? El paralelismo es el poder de ejecutar dos o más acciones de forma simultánea, en lugar de concurrentemente. Si recordamos, en nuestro ejemplo anterior, el desarrollador realiza tres tareas al mismo tiempo, realizaba cálculos programaba y contestaba correos, sin embargo, ninguna de estas tareas se realizaba de forma simultánea.</p><p id="9828396b-41bd-4364-bc04-edc18f7f14b5" class="">En nuestro ejemplo, si queremos que las tareas se realicen de forma paralela tendríamos que tener a tres personas trabajando, vaya, una persona por cada tarea, una persona encargada de los cálculos, otra de la codificación y otra respondiendo correos, tres personas trabajando simultáneamente. </p><p id="19ddb5ec-28f5-4864-8122-d133541aa47a" class="">Si realmente queremos que las tareas se ejecuten de forma paralela debemos optar por el multiprocesamiento sobre el multithreading; de esta forma cada proceso tendrá su propio intérprete y podrá ejecutarse de manera independiente, logrando así evitar el cuello de botella de <strong>GIL</strong> y aprovechando todo el potencial de nuestros equipos.</p><p id="c2436189-64bc-46a7-b705-b7e6108a8579" class="">La mejor forma de trabajar procesos en Python es sin duda con la librería <strong>multiprocessing</strong>.</p><p id="1d4e4cae-fa8a-4351-a11d-6adf9063bd39" class="">Aquí un pequeño ejemplo de como crear nuestros propios Procesos. Haz la prueba por ti mismo y verás el resultado.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="02b6248a-d5df-432e-a88c-cf7674dfcf67" class="code"><code class="language-Python">import time
+import multiprocessing
+
+def countdown(number):
+    while number &gt; 0:
+        number -=1
+
+if __name__ == &#x27;__main__&#x27;:
+    start = time.time()
+
+    count = 100000000
+
+    t1 = multiprocessing.Process(target=countdown, args=(count,))
+    t2 = multiprocessing.Process(target=countdown, args=(count,))
+
+    t1.start()
+    t2.start()
+
+    t1.join()
+    t2.join()
+
+    print(f&#x27;Tiempo transcurrido {time.time() - start }&#x27;)</code></pre><p id="324c0265-0855-4052-af6e-94a6fd688a25" class="">
+</p><h2 id="10556773-74fc-4f98-89da-1e3423da4e43" class="">3 | Programación asíncrona</h2><figure id="f007e483-bcb4-4f0f-85ad-eef6d750f190" class="image"><a href="https://cdn-1.motorsport.com/images/mgl/YP3klO42/s8/lorenzo-bandini-chris-amon-fer-1.jpg"><img src="https://cdn-1.motorsport.com/images/mgl/YP3klO42/s8/lorenzo-bandini-chris-amon-fer-1.jpg"/></a></figure><p id="5bbe1ee0-fbf1-4875-8041-acfeca36ac73" class="">La programación asíncrona no tiene nada que ver con distintos hilos o procesos… En este tipo de programación vamos a tener un solo hilo y un solo proceso, pero seremos capaces de hacer varias cosas a la vez. ¿Entonces, cuál es el truco? </p><p id="553c8f41-8881-412b-94cb-3a6d1af00a75" class="">Veamos un ejemplo 🍽️🚀</p><hr id="e8f8aada-085a-48b4-a59f-dd11b845ec01"/><p id="2064f842-6e4d-4c0d-8916-4b748d38601b" class="">Imagina que eres el camarero en un restaurante muy concurrido. Tienes que tomar las órdenes de los clientes, entregar la comida y asegurarte de que todos estén satisfechos. Pero aquí está el truco: solo puedes atender a un cliente a la vez. Si alguien te pide unas papas fritas, no puedes atender a otros clientes hasta que entregues esas papas fritas. ¡Sería un caos y muy lento!</p><p id="32a07ea6-35ec-4841-9aff-ab148f2dc730" class="">Aquí es donde entra en juego la <strong>programación asíncrona</strong>. Vamos a desglosar los conceptos:</p><p id="f23342bf-defa-4b9f-9f04-29911aa795fc" class=""><strong>Instrucción bloqueante</strong> 🛑:<div class="indented"><ul id="c2020a2c-42dd-4a8b-9202-8975c9d15f61" class="bulleted-list"><li style="list-style-type:disc">Imagina que un cliente te pide un plato de pasta, pero el cocinero aún no ha terminado de prepararlo. Tú, como camarero, no puedes hacer nada más hasta que el cocinero te entregue el plato. Esto es una acción bloqueante.</li></ul><ul id="0aa7daf3-bff8-4896-8221-26a174a0e640" class="bulleted-list"><li style="list-style-type:disc">En programación, una instrucción bloqueante sería como esperar a que se complete una operación antes de continuar con la siguiente.</li></ul></div></p><p id="79c3ea36-f9f1-4842-a407-e7085784903c" class=""><strong>Instrucción no bloqueante</strong> 🔄:<div class="indented"><ul id="1baf637b-1d33-46e2-8563-9f2776df8342" class="bulleted-list"><li style="list-style-type:disc">Ahora, en lugar de quedarte parado esperando, decides ser más eficiente. Cuando un cliente te pide una pizza, le entregas la orden al chef y él te dice: “Puedes atender a otros clientes mientras preparo la pizza”. ¡Genial!</li></ul><ul id="6093fc63-2251-45e4-b0dd-0be118970713" class="bulleted-list"><li style="list-style-type:disc">En programación, una instrucción no bloqueante permite que el programa continúe ejecutando otras tareas mientras espera que algo suceda en segundo plano.</li></ul></div></p><p id="37690479-128f-4986-a785-3eeb4010fe8e" class=""><strong>Ejemplo en Python</strong></p><ul id="26f13750-f737-4559-815c-5b489d68e3f7" class="bulleted-list"><li style="list-style-type:disc">Supongamos que tienes una aplicación web que consulta una base de datos para mostrar información al usuario. Si hiciéramos esto de manera bloqueante, la aplicación se quedaría esperando a que la base de datos responda antes de mostrar cualquier otra cosa.</li></ul><ul id="2aaf03d8-18d5-43c2-b5b2-6ad2f6cd0c56" class="bulleted-list"><li style="list-style-type:disc">Con la programación asíncrona, puedes enviar la consulta a la base de datos y mientras esperas su respuesta, atender otras solicitudes de usuarios. Cuando la base de datos responda, vuelves a la consulta original y muestras los resultados. ¡Eficiente y rápido!</li></ul><p id="0c6ed302-d2b5-49f3-abf1-56eeefee773a" class="">En resumen, la programación asíncrona no se trata solo de optimizar recursos del CPU, sino de <strong>optimizar el tiempo de espera</strong>. Permite que las tareas se ejecuten de manera no bloqueante, como un camarero que atiende a varios clientes mientras espera que algo suceda en segundo plano. ¡Así logramos ser camareros eficientes en el mundo de la programación! 🍽️🚀</p><h2 id="ed5653f3-b571-48cf-bd4a-9057470a6b3a" class="">En definitiva</h2><p id="d335797c-0952-4898-9564-5585edb0bc72" class="">
+</p><p id="ba58a197-0619-4543-a01d-042d1bfc9892" class="">Imagina que tienes varios clientes en el restaurante:<div class="indented"><ul id="e1eff68d-6da7-4fb2-bbcb-14c9c8e87d78" class="bulleted-list"><li style="list-style-type:disc">Cliente A quiere una hamburguesa (tarea 1).</li></ul><ul id="c005591f-1c89-434e-ae7a-1ec49422dfc9" class="bulleted-list"><li style="list-style-type:disc">Cliente B pide una ensalada (tarea 2).</li></ul><ul id="0eaf136c-b698-4e81-b0c9-40557b39c392" class="bulleted-list"><li style="list-style-type:disc">Cliente C desea una sopa (tarea 3).</li></ul></div></p><p id="88498af1-7628-4622-8859-1b3c8da8bfb8" class="">
+</p><ol type="1" id="eb7e02c3-19e2-4482-9c5a-3671e243a288" class="numbered-list" start="1"><li><strong>Concurrencia (Multihilos)</strong>:<ul id="b2fc6707-83ab-4e8f-a064-3081063bfa9b" class="bulleted-list"><li style="list-style-type:disc">Implica <strong>múltiples hilos</strong> de ejecución dentro de un proceso.</li></ul><ul id="74285ba9-01bc-4def-8ac3-d926a63d2d4b" class="bulleted-list"><li style="list-style-type:disc">Los hilos comparten recursos como memoria.</li></ul><ul id="ec8705ea-b742-41a8-aafd-0c8607f870df" class="bulleted-list"><li style="list-style-type:disc">Ejemplo: Varios camareros atienden a diferentes clientes al mismo tiempo.</li></ul></li></ol><ol type="1" id="1d439d95-0670-461a-a38f-cac052ce6135" class="numbered-list" start="2"><li><strong>Paralelización (Multiprocesos)</strong>:<ul id="554a36a6-b376-42d0-9127-9b32eb556a15" class="bulleted-list"><li style="list-style-type:disc">Implica <strong>múltiples procesos</strong> independientes que se ejecutan simultáneamente.</li></ul><ul id="9f337ab9-f99d-4454-acc1-be6c2d7a34e3" class="bulleted-list"><li style="list-style-type:disc">Cada proceso tiene su <strong>propia memoria</strong> y recursos.</li></ul><ul id="f5dbb6d3-1062-4534-87ad-c0892f4a98f9" class="bulleted-list"><li style="list-style-type:disc">Ejemplo: Varios camareros trabajan en diferentes mesas sin compartir platos ni recursos.</li></ul></li></ol><ol type="1" id="59181441-148d-4ac9-89b6-77ba0473b03c" class="numbered-list" start="3"><li><strong>Programación Asíncrona</strong>:<ul id="7702dc76-cf45-459a-8421-bd030b61eb25" class="bulleted-list"><li style="list-style-type:disc">Se centra en <strong>optimizar el tiempo de espera</strong> y permitir que el programa realice otras tareas mientras espera que ocurra algo en segundo plano.</li></ul><ul id="a47e23e7-f3bf-44f8-84a1-217d3f547565" class="bulleted-list"><li style="list-style-type:disc">Utiliza palabras clave como <code><strong>async</strong></code> y <code><strong>await</strong></code> en Python.</li></ul><ul id="04f44c94-07ef-45a8-b4bf-a7c9638c20d4" class="bulleted-list"><li style="list-style-type:disc">Ejemplo: Un camarero toma más pedidos mientras el chef cocina.</li></ul></li></ol><p id="0b7bc32e-beaf-42da-aeeb-5c83f9c0f34e" class="">
+</p><h2 id="9250ac43-4323-4fa2-b8d2-3dca5de3bd71" class="">Vuestro turno</h2><figure id="424240e0-b7fd-4cd5-8458-4936f8092983" class="image"><a href="https://www.thesun.co.uk/wp-content/uploads/2019/11/NINTCHDBPICT000539823516-e1573771179250.jpg"><img src="https://www.thesun.co.uk/wp-content/uploads/2019/11/NINTCHDBPICT000539823516-e1573771179250.jpg"/></a></figure><p id="89daa59e-ec6f-4f8c-8280-9243d35d0784" class="">
+</p><p id="103975d7-b432-49bd-9716-0e53043d258c" class="">Haced grupos de dos:</p><ul id="dc289659-fb7d-4ebe-ae38-1f9c435b8ad4" class="bulleted-list"><li style="list-style-type:disc">Multihilos en Python<ul id="1ae3af9a-8479-4b7f-9bb2-668de37a62e1" class="bulleted-list"><li style="list-style-type:circle">Relación entre procesos y sus hilos</li></ul><ul id="a0ecb83a-02dc-4a89-a5fa-34a6540f67ed" class="bulleted-list"><li style="list-style-type:circle">Explicación sobre Context Switching</li></ul><ul id="c7e87c78-11eb-4f78-a161-623934bc0b40" class="bulleted-list"><li style="list-style-type:circle">Librería como <code><strong>threading</strong></code> en Python.<ul id="e32c0c89-3f3c-435d-a7f7-57f0d83ca6ac" class="bulleted-list"><li style="list-style-type:square">Cómo importarlo</li></ul><ul id="f8dc4584-5d81-4d19-8510-5c70988c61e5" class="bulleted-list"><li style="list-style-type:square">Cómo crear un hilo. Qué parámetros necesita tomar como argumentos de entrada</li></ul><ul id="d1100214-644d-47cd-af7e-8b3400a54e1d" class="bulleted-list"><li style="list-style-type:square">Cómo empezar un hilo. ¿Qué método se necesita?</li></ul><ul id="9d8c6538-522a-47ef-8c6a-e66641a264d0" class="bulleted-list"><li style="list-style-type:square">¿Hay otros métodos?</li></ul><ul id="b68d9b3d-c43e-423a-871a-a555ea155489" class="bulleted-list"><li style="list-style-type:square">¿Cómo finalizar un hilo?</li></ul><ul id="7f6e3605-cffb-4fb7-a33e-eacd6c37c031" class="bulleted-list"><li style="list-style-type:square">Ejemplo</li></ul></li></ul></li></ul><p id="604f7904-bbbd-4145-9e46-ceeb5eca6e47" class="">
+</p><h2 id="5e9f16b4-4240-434f-a913-0b0e0a4532cf" class="">Glosario 📚</h2><ul id="5e37bf16-00b5-4bf8-b8a6-81fdcd29de64" class="bulleted-list"><li style="list-style-type:disc"><strong>Programa</strong> 📝: Un archivo ejecutable que contiene un conjunto de instrucciones para realizar una tarea específica. <ul id="1dbd044c-90fd-4cb9-a585-e6e6fb04cbcd" class="bulleted-list"><li style="list-style-type:circle">En otras palabras, es como una receta de cocina. </li></ul></li></ul><ul id="dfb86a72-031e-47b7-8b9c-01cdf576999f" class="bulleted-list"><li style="list-style-type:disc"><strong>Proceso</strong> 🔄: Es un programa que se ha cargado en la memoria junto con todas las dependencias y ejecutables necesarios para funcionar. Cada proceso tiene su propio espacio de memoria. <ul id="13190a48-c6ff-436b-88d1-3e8cff84ab1b" class="bulleted-list"><li style="list-style-type:circle">En otras palabras, es como un chef en la cocina, con todas sus cazuelas, su sombrero de cocinero, y sus especias. Incluso con su radio para cocinar tranquilo.</li></ul></li></ul><ul id="9ad2b081-d773-4bb6-85dc-2710abae9248" class="bulleted-list"><li style="list-style-type:disc"><strong>Hilo</strong> 🧵: Los hilos son unidades de ejecución dentro de un proceso. Pueden trabajar en paralelo, compartiendo el espacio de memoria del proceso.<ul id="2ab9925f-8c81-4b98-8cf3-8f4bba7532a7" class="bulleted-list"><li style="list-style-type:circle">Los hilos son como los ayudantes del chef. Imagina que un chef tiene varios ayudantes, cada uno ocupado en una tarea diferente. Por ejemplo, un hilo puede estar preparando la salsa mientras otro corta las verduras.</li></ul></li></ul><ul id="13805890-8451-4bb7-bb05-296172845570" class="bulleted-list"><li style="list-style-type:disc"><strong>Multihilo</strong> 🌟: Varios hilos son creados por un proceso para realizar diferentes tareas, aproximadamente al mismo tiempo. Aunque no se ejecutan verdaderamente en paralelo debido al <strong>Bloqueo Global del Intérprete (GIL)</strong> en Python, dan la ilusión de que lo hacen. <ul id="f8c865c7-16ea-4cab-b2ed-3fcc202e9eb7" class="bulleted-list"><li style="list-style-type:circle">Esta técnica es como tener varios chefs trabajando juntos en la misma cocina. Es como si los chefs estuvieran cocinando en una cocina muy bien coordinada.</li></ul></li></ul><ul id="9794bf67-b506-4a4c-9d98-205277a9d2ec" class="bulleted-list"><li style="list-style-type:disc"><strong>Multiproceso</strong> 🚀: La paralelización es real. Múltiples procesos se ejecutan en diferentes núcleos de CPU, sin compartir recursos entre sí. Cada proceso puede tener muchos hilos trabajando en su propio espacio de memoria. <ul id="0beca2ba-0b0d-4847-bfa3-fba94b5a232a" class="bulleted-list"><li style="list-style-type:circle">Aquí sí tenemos varios chefs en cocinas separadas. Es como si tuvieras varios restaurantes, cada uno con su propio equipo de cocina.</li></ul></li></ul><p id="1fbbf892-1002-4ca3-ad38-99e70392d4e4" class="">En resumen, la programación asíncrona, la concurrencia y la paralelización son como las diferentes formas de organizar la cocina para preparar una gran comida. Cada una, tiene sus ventajas e inconvenientes. 🍽️🚀</p><p id="c0364371-e652-40f1-8822-8f8048d24a98" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

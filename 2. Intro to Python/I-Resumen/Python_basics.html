@@ -1,0 +1,703 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Clases del Curso Básico de Python</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="e60bf698-eb03-4bc8-b0c6-2ebf73e710c9" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_eva_during_skylab_3.jpg" style="object-position:center 40%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="https://static.platzi.com/media/achievements/badge-basico-python-bdcc67b3-031d-4dce-8e78-5699fb243149.png"/></div><h1 class="page-title">Clases del Curso Básico de Python</h1><p class="page-description"></p></header><div class="page-body"><h1 id="c8bbb521-98de-42ed-858f-29672512c8b1" class=""><mark class="highlight-teal">Python</mark></h1><p id="79dad1fc-817a-4438-8a8c-8392a859b6ed" class="">Python es un lenguaje de programación <strong><mark class="highlight-teal">interpretado </mark></strong>cuya filosofía hace hincapié en la <strong>legibilidad de su código</strong>. Se trata de un lenguaje de programación <strong>multiparadigma</strong>, ya que soporta parcialmente la <strong>orientación a objetos</strong>, <strong>programación imperativa </strong>y, en menor medida, <strong>programación funcional</strong>. Es un lenguaje interpretado, <mark class="highlight-teal"><strong>dinámico </strong></mark>y multiplataforma.</p><h3 id="dec7e81b-eda5-4863-a38b-5e959377acdb" class="">¿Qué es un algoritmo?</h3><p id="5e477689-7b77-4596-97d4-0591e470f84a" class="">En matemáticas, lógica, <strong>ciencias de la computación </strong>y disciplinas relacionadas, un algoritmo es un <mark class="highlight-teal"><strong>conjunto de instrucciones </strong></mark>o reglas definidas y <strong>no-ambiguas</strong>, <strong>ordenadas </strong>y <strong>finitas </strong>que permite, típicamente, <strong>solucionar un problema</strong>, realizar un cómputo, procesar datos y llevar a cabo otras tareas o <strong>actividades</strong></p><h2 id="50852bbb-5aa0-42cf-a4ab-1c1d6e778553" class="">Manejo de la consola</h2><div id="c3b91778-b2f9-4f2a-aa5c-1258e6a3a1d6" class="column-list"><div id="77dfe10c-a908-4e59-b8ee-c96d69b4b224" style="width:50%" class="column"><ul id="7b0fff68-023d-4147-b1a7-d0b70cf3937d" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal"><strong>CD</strong></mark>: CD (<strong>Change Directory</strong>) sirve para <strong>mostrar el nombre </strong>del directorio actual y, también, permite <mark class="highlight-teal"><strong>cambiar de directorio</strong></mark>.</li></ul><div id="88cdc7a3-c8d4-4f0f-900a-736924386a75" class="collection-content"><h4 class="collection-title">Parámetros</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Parámetro</th><th><span class="icon property-icon"><svg role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Descripción</th></tr></thead><tbody><tr id="a96aede7-0e58-4cda-9903-c1b280f56c82"><td class="cell-title"><a href="https://www.notion.so/a96aede70e584cda9903c1b280f56c82?pvs=21">[..]</a></td><td class="cell-oqes">Especifica el <mark class="highlight-teal"><strong>directorio padre </strong></mark>(superior).</td></tr><tr id="425e1764-82b3-410d-a1a8-7bfbe7fdb80f"><td class="cell-title"><a href="https://www.notion.so/425e176482b3410da1a87bfbe7fdb80f?pvs=21">/?</a></td><td class="cell-oqes">Muestra <strong>información </strong>de <strong>ayuda </strong>acerca de <strong>CD</strong> en el <em>Símbolo del sistema</em>.</td></tr></tbody></table><br/><br/></div></div><div id="9328695c-abd1-46ce-96b1-9ba093063e1f" style="width:50%" class="column"><ul id="d08dce8a-fa57-4812-9b9e-5e20cfdadafd" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal"><strong>MKDIR: </strong></mark>Para crear un directorio se puede emplear el comando <strong>MD</strong> (o <strong>MKDIR</strong>). Por ejemplo, para crear un directorio llamando <strong>pruebas</strong>, es posible escribir:</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="ac6ce534-cd63-44bb-84c2-8c508057c23e" class="code"><code class="language-PowerShell" style="white-space:pre-wrap;word-break:break-all">mkdir pruebas</code></pre><ul id="0100732c-f519-42c7-aa05-01dbc1e8530e" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal"><strong>LS</strong></mark>: El comando ls es muy útil para <strong>ver los archivos </strong>y <strong>directorios </strong>que tenemos dentro del <strong>directorio en el que estamos</strong>.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="37f82ec3-3783-4eca-9deb-0e0d436702d3" class="code"><code class="language-PowerShell" style="white-space:pre-wrap;word-break:break-all">ls</code></pre></div></div><ul id="5fa0718a-1419-4f6a-b485-f7082b88880a" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal"><strong>Touch</strong></mark>: El comando touch de la <strong>terminal </strong>se usa principalmente para <mark class="highlight-teal"><strong>crear archivos vacíos</strong></mark></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="d51c0294-c408-4e14-b8ac-22c6e880812d" class="code"><code class="language-PowerShell" style="white-space:pre-wrap;word-break:break-all">touch pruebas.txt</code></pre><h2 id="3763d56a-56c5-4ae7-b0c4-b5081888af1f" class="">Operadores aritméticos</h2><h3 id="b88c1498-d346-4e5e-ba2a-2b633aa69c69" class=""><mark class="highlight-teal">Orden de precedencia</mark></h3><ol type="1" id="6702537f-62ec-446c-b23c-171ebaaa4de3" class="numbered-list" start="1"><li><strong>Exponente</strong>: <code>**</code></li></ol><ol type="1" id="7b77e9f2-f4ca-48b3-90d8-e68b83c453b8" class="numbered-list" start="2"><li><strong>Negación</strong>:<code>-</code></li></ol><ol type="1" id="dd228d7f-10f4-48d3-bc9d-85998d254866" class="numbered-list" start="3"><li><strong>Multiplicación, División, División entera, Módulo</strong>: <code>*</code>,<code>/</code>, <code>//</code>, <code>%</code></li></ol><ol type="1" id="43b7a5ae-4eca-4e7a-bb75-5f768961d2f3" class="numbered-list" start="4"><li><strong>Suma, Resta</strong>: <code>+</code>,<code>-</code></li></ol><h2 id="2d977871-1285-492b-9fca-82a176791bce" class="">Variables</h2><p id="2cb4041b-cf89-45ac-a5c2-47f58909fe06" class="">Una variable en  Python es una <strong>ubicación de memoria reservada para almacenar valores</strong>. En otras palabras, una <strong>variable </strong>en un programa de Python <mark class="highlight-teal"><strong>proporciona datos a la computadora </strong></mark>para su <strong>procesamiento</strong>.</p><h3 id="824f5b6d-ea04-49eb-9728-1d16a64f732b" class=""><mark class="highlight-teal"><strong>¿Qué es un tipo de dato?</strong></mark></h3><p id="e6e0590b-5020-42bc-abdf-0b6507b1c238" class="">En programación, <strong>un tipo de dato es el atributo que especifica al ordenador la clase de dato que tiene que manejar</strong>, para saber qué valores puede tomar y qué operaciones realizar. Los tipos de datos primitivos o elementales más comunes en los lenguajes de programación son los siguientes:</p><ul id="24b5c559-00ad-4b7e-a3dc-13f1bcbb5c00" class="bulleted-list"><li style="list-style-type:disc"><strong>Números enteros </strong>(y con signo negativo)</li></ul><ul id="ac40ba9d-13a6-4ca8-a3a0-c6dfbb31a15e" class="bulleted-list"><li style="list-style-type:disc"><strong>Números en coma flotante </strong>(decimales)</li></ul><ul id="be6b84a6-aaf9-4513-82b5-0adbb8457c68" class="bulleted-list"><li style="list-style-type:disc"><strong>Caracteres </strong>(alfanuméricos)</li></ul><ul id="c05fc54e-ec0c-4b71-a1bc-3841552cedc9" class="bulleted-list"><li style="list-style-type:disc"><strong>Cadenas de caracteres </strong>(textos)</li></ul><ul id="dbd2d5ab-dfc6-4524-908b-17edecb84886" class="bulleted-list"><li style="list-style-type:disc"><strong>Estados lógicos </strong>(booleanos)</li></ul><h2 id="7bb4baed-dd08-4e11-aea0-f7bc32f11039" class=""><mark class="highlight-purple">función </mark>input() </h2><p id="0eb01532-d1c6-42e0-bceb-f66a4f39bb5f" class="">La función input() permite <mark class="highlight-teal"><strong>obtener texto escrito </strong></mark>por teclado. Al llegar a la función, el programa se detiene <strong>esperando </strong>que se escriba algo y se pulse la tecla <strong>Intro</strong>, como muestra el siguiente ejemplo:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="0766a961-f155-449d-a744-b276406dffcc" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">print(&quot;¿Cómo se llama?&quot;)
+nombre = input()</code></pre><div id="d14fdeab-4a47-4e89-b27d-2454388aab04" class="column-list"><div id="7d63f2ba-54ee-4e12-bff8-99bd18081cb9" style="width:50%" class="column"><h2 id="df2d2d61-836d-4138-8c51-f59249f3803d" class=""><mark class="highlight-purple">función </mark>int()</h2><p id="c5533bd3-8efd-4793-b67e-c041c8767bd9" class=""> La función int() <strong>convierte </strong>el valor especificado en un <mark class="highlight-teal"><strong>número entero.</strong></mark></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="09f7d13a-8e62-4f87-8f1e-bc8a38bc7cc2" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">&gt;&gt;&gt; x = int(3.9)
+3</code></pre></div><div id="57eb5761-966f-4ef7-8248-a29aa46acd35" style="width:50%" class="column"><h2 id="a2355aa1-82e8-4f4f-aca3-d7d040acdec1" class=""><mark class="highlight-purple">función </mark>str()</h2><p id="f50e78cb-f4d0-41d3-a0e5-2eeacab0fe3e" class="">La función str() convierte el valor especificado en una cadena de caracteres.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="d0d35edc-234c-4f9d-8102-8aa47164888b" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">&gt;&gt;&gt; x = str(3.9)
+&#x27;3.9&#x27;</code></pre></div></div><h2 id="4e07c576-1cb0-4704-a955-f6c938125fc3" class="">Operadores lógicos y de comparación</h2><p id="a52db2fe-570d-4f77-be58-7bf864af7043" class="">Se utiliza un <mark class="highlight-teal"><strong>operador lógico </strong></mark>para tomar una decisión basada en <strong>múltiples condiciones</strong>. Los <strong>operadores lógicos </strong>utilizados en <strong>Python </strong>son <code>and</code>, <code>or </code>y <code>not</code>.</p><div id="ada229ce-f0a8-4ac0-8476-bdad4599ab47" class="collection-content"><h4 class="collection-title">Operadores Lógicos</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>OPERADOR</th><th><span class="icon property-icon"><svg role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>DESCRIPCIÓN</th><th><span class="icon property-icon"><svg role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>USO</th></tr></thead><tbody><tr id="2391363a-12a0-44d0-a9a2-059b997708d6"><td class="cell-title"><a href="https://www.notion.so/and-2391363a12a044d0a9a2059b997708d6?pvs=21">and</a></td><td class="cell-datM">Devuelve <mark class="highlight-teal"><strong>True </strong></mark>si <strong>ambos operandos </strong>son True</td><td class="cell-yT@f"><code>a and b</code></td></tr><tr id="8b623bfe-8cd6-41bc-b6fa-5898c9a95be2"><td class="cell-title"><a href="https://www.notion.so/or-8b623bfe8cd641bcb6fa5898c9a95be2?pvs=21">or</a></td><td class="cell-datM">Devuelve <mark class="highlight-teal"><strong>True </strong></mark>si <strong>alguno de los operandos </strong>es True</td><td class="cell-yT@f"><code>a or b</code></td></tr><tr id="8028bd8a-02e5-4de0-8141-296482d8d796"><td class="cell-title"><a href="https://www.notion.so/not-8028bd8a02e54de08141296482d8d796?pvs=21">not</a></td><td class="cell-datM">Devuelve <mark class="highlight-teal"><strong>True </strong></mark>si el su <strong>respectivo operando </strong>es <strong>False</strong></td><td class="cell-yT@f"><code>not a</code></td></tr></tbody></table><br/><br/></div><p id="950d38e7-5d30-449d-8231-2dc644721279" class="">Los <mark class="highlight-teal"><strong>operadores de comparación </strong></mark>se utilizan, como su nombre indica, para <strong>comparar dos o más valores</strong>. El resultado de estos operadores siempre es <code>True </code>o <code>False</code>.</p><div id="012b0d87-72a2-4f49-bc91-81f4539ee2c8" class="collection-content"><h4 class="collection-title">Operadores de comparación</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Operador</th><th><span class="icon property-icon"><svg role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Descripción</th></tr></thead><tbody><tr id="719af54a-d089-420a-a939-4b75a2780e8e"><td class="cell-title"><a href="https://www.notion.so/719af54ad089420aa9394b75a2780e8e?pvs=21">&gt;</a></td><td class="cell-eM&lt;c"><mark class="highlight-teal"><strong>Mayor que</strong></mark>. <code>True</code> si el operando de la <strong>izquierda es estrictamente mayor </strong>que el de la derecha; <code>False</code> en caso contrario.</td></tr><tr id="db063dfe-b554-4c55-b722-6a4f8a38c9e3"><td class="cell-title"><a href="https://www.notion.so/db063dfeb5544c55b7226a4f8a38c9e3?pvs=21">&gt;=</a></td><td class="cell-eM&lt;c"><mark class="highlight-teal"><strong>Mayor o igual que</strong></mark>. <code>True</code> si el operando de la <strong>izquierda es mayor o igual que el de la derecha</strong>; <code>False</code> en caso contrario.</td></tr><tr id="bdfd9e9a-5314-41a1-b780-274763ae2ce2"><td class="cell-title"><a href="https://www.notion.so/bdfd9e9a531441a1b780274763ae2ce2?pvs=21">&lt;</a></td><td class="cell-eM&lt;c"><mark class="highlight-teal"><strong>Menor que</strong></mark>. <code>True</code> si el operando de la <strong>izquierda es estrictamente menor </strong>que el de la derecha; <code>False</code> en caso contrario.</td></tr><tr id="c64a22f9-5e06-4921-9eb4-c03c2dfff1bd"><td class="cell-title"><a href="https://www.notion.so/c64a22f95e0649219eb4c03c2dfff1bd?pvs=21">&lt;=</a></td><td class="cell-eM&lt;c"><mark class="highlight-teal"><strong>Menor o igual que</strong></mark>. <code>True</code> si el operando de la <strong>izquierda es menor o igual que el de la derecha</strong>; <code>False</code> en caso contrario.</td></tr><tr id="37ab6474-6c65-4707-9c3f-ee61f7946b11"><td class="cell-title"><a href="https://www.notion.so/37ab64746c6547079c3fee61f7946b11?pvs=21">==</a></td><td class="cell-eM&lt;c"><mark class="highlight-teal"><strong>Igual</strong></mark>. <code>True</code> si el operando de la <strong>izquierda es igual que el de la derecha</strong>; <code>False</code> en caso contrario.</td></tr><tr id="509fd8a0-2561-4319-97e2-b466d9f17c90"><td class="cell-title"><a href="https://www.notion.so/509fd8a02561431997e2b466d9f17c90?pvs=21">!=</a></td><td class="cell-eM&lt;c"><mark class="highlight-teal"><strong>Distinto</strong></mark>. <code>True</code> si los <strong>operandos son distintos</strong>; <code>False</code> en caso contrario.</td></tr></tbody></table><br/><br/></div><h2 id="21e6dcd5-6edb-4c8e-96c8-928038d0b839" class="">Condicionales Python</h2><h3 id="87488524-588d-4067-9b44-5b999f3fc65d" class=""><mark class="highlight-pink">if EXPRESION:</mark></h3><p id="15cb8984-e73b-44e7-a599-b2d59c58ec1b" class="">La <mark class="highlight-teal"><strong>sentencia condicional </strong></mark><code><strong>if </strong></code>se usa para tomar <strong>decisiones</strong>, este evalúa básicamente una <strong>operación lógica</strong>, es decir una expresión que de como <strong>resultado </strong><code>True </code>o <code>False</code>, y <strong>ejecuta la pieza de código </strong>siguiente siempre y cuando el <strong>resultado sea verdadero</strong>.</p><div id="8c65a7fd-b085-4815-ae37-2b9a68620a29" class="column-list"><div id="19aef1b8-eaa4-4831-aae6-d8eb3584d4c7" style="width:43.75%" class="column"><h3 id="2efbec43-74d2-4bad-a405-53fc466f35ad" class=""><mark class="highlight-pink">elif EXPRESION:</mark></h3><p id="f15ea854-48c7-4f07-baed-7514ff7a36e7" class="">La sentencia <code>elif</code>, significa, <strong>De lo contrario Si </strong>se cumple la <mark class="highlight-teal"><strong>expresión condicional </strong></mark>se <strong>ejecuta el bloque de sentencias seguidas</strong>.</p></div><div id="b4f05787-612c-4759-a6ce-20c73a551c28" style="width:56.25%" class="column"><h3 id="520ceca3-1967-474f-8bfe-7372bf9aabdc" class=""><mark class="highlight-pink">else</mark></h3><p id="62be455e-76fc-4347-9402-3387b454a447" class="">La sentencia <code>else</code>, significa, <strong>De lo contrario </strong>se cumple <mark class="highlight-teal"><strong>sin evaluar ninguna expresión </strong></mark>condicional y <strong>ejecuta el bloque de sentencias seguidas</strong>.</p></div></div><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="d0ec0719-2152-4734-9d52-614c5e5b9236"><div style="font-size:1.5em"><span class="icon">✍️</span></div><div style="width:100%">Para comentar o descomentar las líneas de código que tengamos seleccionadas, tenemos la combinación de teclas <code>Ctrl-k-c</code>, para comentar, y <code>Ctrl-k-u</code>, para descomentar.</div></figure><h2 id="0aa28dea-b002-46fc-af26-e5eb0529c6d5" class=""><mark class="highlight-teal">Python Functions</mark></h2><div id="308f11b6-2925-4518-8705-2320b21212b7" class="column-list"><div id="2600a318-af3e-4141-91ec-377975621007" style="width:50%" class="column"><p id="3db20e40-c2f1-4b11-a74d-0a8bc48616f0" class="">Una <strong>función </strong>es un <mark class="highlight-teal"><strong>bloque de código </strong></mark>que solo se <strong>ejecuta cuando se llama</strong>. Puede pasar datos, conocidos como <strong>parámetros</strong>, a una función. Una función puede <mark class="highlight-teal"><strong>devolver datos </strong></mark>como resultado.</p></div><div id="7a247b80-5658-47f5-9a85-aa0a87ee1c17" style="width:50%" class="column"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="29eeaceb-e849-46af-bb9a-5940826caba6" class="code"><code class="language-Python">def sumar(a, b):
+    resultado = a + b
+    return resultado</code></pre></div></div><h3 id="4d776bf7-a31e-4f88-ae12-be84325a7050" class=""><mark class="highlight-purple">Métodos </mark>para variables de tipo texto (Cadena de caracteres)</h3><ul id="1599dd1d-1532-48a8-b732-40ce08aa7f5e" class="bulleted-list"><li style="list-style-type:disc"><code><strong>name.upper()</strong></code>: El método <code>.upper()</code> devuelve una cadena donde <strong>todos los caracteres </strong>están en <mark class="highlight-teal"><strong>mayúsculas</strong></mark>. Los símbolos y números se ignoran.</li></ul><ul id="f0efdac9-de95-4199-b4fa-680ad2346794" class="bulleted-list"><li style="list-style-type:disc"><code><strong>name.capitalize()</strong></code>: El método <code>.capitalize() </code>devuelve una cadena donde el <strong>primer carácter </strong>está en <mark class="highlight-teal"><strong>mayúsculas</strong></mark>.</li></ul><ul id="72d0679e-69bf-42ad-b6cd-9b2e2a4b63dd" class="bulleted-list"><li style="list-style-type:disc"><code>name.strip()</code>: El método <code>.strip()</code> <strong>elimina los caracteres iniciales </strong>(<mark class="highlight-teal"><strong>espacios al principio</strong></mark>) y finales (<mark class="highlight-teal"><strong>espacios al final</strong></mark>) (el espacio es el carácter inicial predeterminado para eliminar)</li></ul><ul id="d3a72198-dc77-4d8f-af95-2331616335c0" class="bulleted-list"><li style="list-style-type:disc"><code>name.lower()</code>: El método <code>.lower() </code>devuelve una cadena donde <strong>todos los caracteres </strong>son <mark class="highlight-teal"><strong>minúsculas</strong></mark>. Los símbolos y números se ignoran.</li></ul><ul id="f13e8f2f-30bd-4d0e-8ae5-7b88aedc4fec" class="bulleted-list"><li style="list-style-type:disc"><code>name.replace()</code>: El método <code>.replace()</code> <mark class="highlight-teal"><strong>reemplaza </strong></mark>una <strong>frase especificada </strong>con otra <strong>frase especificada</strong>. <ul id="cce2bfef-13a2-4db1-93cc-bef19b774449" class="bulleted-list"><li style="list-style-type:circle"><strong>Nota</strong>: Todas las apariciones de la frase especificada serán reemplazadas, si no se especifica nada más.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14ecd121-3828-4189-9327-194a3c7ffd92" class="code"><code class="language-Python">string.replace(&quot;oldvalue&quot;, &quot;newvalue&quot;, 10)</code></pre></li></ul><h2 id="946a0ed5-8b14-4c68-9e0d-83b4d8c83784" class=""><mark class="highlight-purple">Función </mark>len() </h2><div id="4dc0dd77-4303-4ef1-98b5-08e2a94dc9ef" class="column-list"><div id="adaf842a-6f6c-45eb-b606-7849b711b305" style="width:50%" class="column"><p id="1e84eb77-aed4-4df9-9d3b-a31ad547081c" class="">La <strong>función </strong><code>len() </code>devuelve el <strong>número de elementos </strong>de un <mark class="highlight-teal"><strong>objeto</strong></mark>. Cuando el objeto es una cadena, la función <code>len() </code>devuelve el <strong>número de caracteres </strong>de la <strong>cadena</strong>.</p></div><div id="c8e57946-37a9-4eef-8741-0442646ada8d" style="width:50%" class="column"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="4d0f621d-e051-42c6-b60a-f7eb2f3905cc" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">&gt;&gt;&gt; mylist = &quot;Hello&quot;
+&gt;&gt;&gt; x = len(mylist)
+5</code></pre></div></div><h2 id="d4a9102a-fba6-4a21-a1fc-845e0b3a6d4c" class=""><mark class="highlight-purple">Función </mark>slice() </h2><div id="2d254cad-9e70-441e-9a39-b876b537be4d" class="column-list"><div id="90ce6b73-764c-44ff-ad50-fd9c1c84bb15" style="width:50%" class="column"><p id="cab566cc-6b78-4597-b082-70c4a9648bfc" class="">La función <code>slice()</code> devuelve un <strong>objeto slice</strong>. Se utiliza para <strong>determinar </strong>la forma de <mark class="highlight-teal"><strong>cortar una secuencia</strong></mark>. Puede especificar dónde <strong>comenzar el corte </strong>y <strong>dónde terminar</strong>. También puede <strong>especificar el paso</strong>.</p></div><div id="c7be3b28-9a1e-4946-b159-4ddb3e0d5498" style="width:50%" class="column"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="bc9c4c3b-6381-4e06-bdb3-a452311df377" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">a = (&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;, &quot;g&quot;, &quot;h&quot;)
+x = slice(2)
+print(a[x])</code></pre></div></div><h1 id="26afad2a-f105-4431-b8da-80af06d54491" class="">Constantes</h1><p id="d1ec8172-0af7-456c-af37-d42f487818f8" class="">Una constante es un <strong>tipo de variable </strong>la cual <mark class="highlight-teal"><strong>no puede ser cambiada</strong></mark>. Eso es muy de ayuda pensar las constantes como <strong>contenedores </strong>que contienen <strong>información </strong>el cual <strong>no puede ser cambiado después</strong>.</p><div id="fb01482c-c610-465e-83bc-c6c84a01d895" class="column-list"><div id="f845c726-fb26-488d-9d51-e6f6d4b0c429" style="width:37.5%" class="column"><h3 id="0e365bc3-a3a6-4ae7-91e8-a464eb948a3a" class=""><mark class="highlight-purple">while</mark></h3><p id="51c9bef9-bb8f-401c-a85b-05f0029b2f2b" class="">Con el ciclo <code>while </code>podemos ejecutar un <mark class="highlight-teal"><strong>conjunto de declaraciones </strong></mark>siempre que una <strong>condición sea verdadera</strong>.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="8f67aa88-372d-4a77-b812-8fd44bff63d9" class="code"><code class="language-Python">i = 1
+while i &lt; 6:
+  print(i)
+  i += 1</code></pre></div><div id="f8090a90-809f-4886-a822-7e097beaa75c" style="width:62.5%" class="column"><h3 id="e39664bc-6511-45f9-86a3-535b81a8c057" class=""><mark class="highlight-purple">for</mark></h3><p id="a940b546-a5a8-444e-bdf4-e3f98d08ff0e" class="">Un bucle <code>for</code> se utiliza para <mark class="highlight-teal"><strong>iterar sobre una secuencia</strong></mark><mark class="highlight-purple"><strong> </strong></mark>(que es una lista, una tupla, un diccionario, un conjunto o una cadena). Con el ciclo <code>for</code> podemos <strong>ejecutar un conjunto de declaraciones</strong>, una vez para <strong>cada elemento </strong>de una lista, tupla, conjunto, etc.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="710ea79b-5f52-4941-aa16-0a89e3d0c54a" class="code"><code class="language-Python">fruits = [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;]
+for x in fruits:
+  print(x)</code></pre></div></div><h2 id="4779d05f-7424-45b5-90ea-f142c8c6d302" class=""><mark class="highlight-purple">Función</mark> range()</h2><p id="164c7df9-c5db-404d-82dd-eaae40e58308" class="">La función <code>range()</code> devuelve una <strong>secuencia de números</strong>, comenzando desde 0 de forma predeterminada, se incrementa en 1 (<strong>de forma predeterminada</strong>) y se detiene <mark class="highlight-teal"><strong>antes de un número especificado</strong></mark>.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="0fd941d2-6082-4858-9cef-242b30ee4f08" class="code"><code class="language-Python">x = range(6)
+for n in x:
+  print(n)</code></pre><h2 id="55724287-ba75-42d0-8901-5e71b57e8715" class="">Interrumpir los ciclos en programación</h2><div id="751e4636-8d62-412d-bf97-2951ad2487e3" class="column-list"><div id="770c57bd-913e-4580-b20a-2e96cc2d78b4" style="width:37.5%" class="column"><h3 id="18e4a943-b170-46a7-9c62-ab6a498c4371" class=""><mark class="highlight-teal">Break</mark></h3><p id="216f7f85-5130-46b7-9036-303bc826a9b9" class="">La <strong>palabra clave </strong><code>break</code> se usa para <mark class="highlight-teal"><strong>romper</strong></mark> un ciclo <code>for</code> o un ciclo <code>while</code>.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="dfc1d465-5098-471b-aa07-845ae38c22a0" class="code"><code class="language-Python">for i in range(1, 9):
+  if i &gt; 3:
+    break
+  print(i)</code></pre></div><div id="37a673f4-6fe6-47b3-90c1-cc3ca0001833" style="width:62.5%" class="column"><h3 id="5011634e-5fdf-420d-bd8d-b479a73cab96" class=""><mark class="highlight-teal">Continue</mark></h3><p id="30b8eb28-1512-48b2-8722-fed43b3a60dd" class="">La palabra clave <mark class="highlight-teal"><strong>continue </strong></mark>se usa para <strong>finalizar la iteración </strong>actual en un bucle <code>for</code> (o un bucle <code>while</code>) y continúa con la <strong>siguiente iteración</strong>.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f4a5f744-7743-48f1-b3bc-1cf6bdd57413" class="code"><code class="language-Python">for i in range(1, 9):
+  if i == 3:
+    continue
+  print(i)</code></pre></div></div><h1 id="72991e79-e367-4a6b-a474-b4b6608beb56" class="">Estructuras de datos</h1><h2 id="e8e5af7e-762d-46e4-91c9-a79984f28585" class=""><mark class="highlight-teal">Listas</mark></h2><p id="45934b3f-b0ff-46e8-8d1b-2f4f7a156172" class="">Las <strong>listas </strong>se utilizan para <mark class="highlight-teal"><strong>almacenar varios elementos en una sola variable</strong></mark>. Las listas son uno de los 4 tipos de <strong>datos integrados </strong>en Python que se utilizan para <strong>almacenar colecciones de datos</strong>, los otros 3 son <mark class="highlight-teal"><strong>Tuplas</strong></mark>, <mark class="highlight-teal"><strong>Set </strong></mark>y <mark class="highlight-teal"><strong>Diccionarios</strong></mark>, todos con <strong>diferentes cualidades y usos</strong>.</p><h3 id="310767b9-2210-428c-80f5-3cfd40782ce2" class=""><mark class="highlight-purple">Métodos </mark>para las listas</h3><ul id="c5133987-4015-47d2-86ea-b763ec615692" class="bulleted-list"><li style="list-style-type:disc"><strong><code>list.append(elmnt)</code></strong>: El método <code>.append()</code> agrega un <strong>elemento </strong>al <mark class="highlight-teal"><strong>final de la lista</strong></mark>. </li></ul><ul id="d8eddc64-f6ab-42b3-8fb1-ba6f54e017f0" class="bulleted-list"><li style="list-style-type:disc"><strong><code>list.extend(iterable)</code></strong>: El método <code>.extend()</code> <mark class="highlight-teal"><strong>agrega </strong></mark>los <strong>elementos de lista especificados </strong>(o <mark class="highlight-teal"><strong>cualquier iterable</strong></mark>) al <strong>final de la lista actual</strong>.</li></ul><ul id="5ddd6277-6f62-46ce-88ed-3bd6c3cb7ce5" class="bulleted-list"><li style="list-style-type:disc"><strong><code>list.insert(pos, elmnt)</code></strong>: El método <code>.insert()</code> inserta el <strong>valor especificado </strong>en la <mark class="highlight-teal"><strong>posición especificada</strong></mark>.</li></ul><ul id="b2ef4761-c3a7-42ce-8a28-399a5acddefc" class="bulleted-list"><li style="list-style-type:disc"><code><strong>list.remove(elmnt)</strong></code>: El método <code>.remove()</code> <strong>elimina la primera aparición </strong>del elemento con el <mark class="highlight-teal"><strong>valor especificado</strong></mark>.</li></ul><ul id="3a83f159-5640-4952-beb9-6d9d306fcf48" class="bulleted-list"><li style="list-style-type:disc"><code><strong>list.pop(pos)</strong></code>: El método <code>.pop()</code> <strong>elimina el elemento </strong>en la <mark class="highlight-teal"><strong>posición especificada</strong></mark>.</li></ul><ul id="97db6848-588a-425e-844b-e49627c941db" class="bulleted-list"><li style="list-style-type:disc"><code><strong>list.clear()</strong></code>: El método <code>.clear()</code> <strong>elimina todos </strong>los <mark class="highlight-teal"><strong>elementos de una lista</strong></mark>.</li></ul><ul id="370075eb-409b-42d8-b1d2-27bec6793d6f" class="bulleted-list"><li style="list-style-type:disc"><code><strong>list.index(elmnt)</strong></code>: El método <code>.index()</code> devuelve la <mark class="highlight-teal"><strong>posición en la primera aparición </strong></mark>del <strong>valor especificado</strong>. </li></ul><ul id="43b622d5-941c-4d83-9b17-4c08e106cde9" class="bulleted-list"><li style="list-style-type:disc"><code><strong>list.count(value)</strong></code>: El método <code>.count()</code> devuelve el <strong>número de elementos </strong>con el <mark class="highlight-teal"><strong>valor especificado</strong></mark>.</li></ul><ul id="f36388de-b6c1-49d2-9221-6c58fdf49daa" class="bulleted-list"><li style="list-style-type:disc"><code><strong>list.sort(reverse=True|False, key=myFunc)</strong></code>: El método <code>.sort()</code> ordena la <strong>lista de forma ascendente </strong>por defecto (<mark class="highlight-teal"><strong>Diferencia entre minúsculas y mayúsculas</strong></mark>). También puede <mark class="highlight-teal"><strong>crear una función </strong></mark>para decidir los <strong>criterios de clasificación</strong>.</li></ul><ul id="7cdf11c1-3474-4f8c-93fe-bf7847c24d94" class="bulleted-list"><li style="list-style-type:disc"><code><strong>list.reverse()</strong></code>: El método <code>.reverse()</code> <mark class="highlight-teal"><strong>invierte el orden </strong></mark>de <strong>clasificación de los elementos</strong>.</li></ul><ul id="b9f2b1e2-0a52-44a4-ae23-badb9caedecc" class="bulleted-list"><li style="list-style-type:disc"><code><strong>list.copy()</strong></code>: El método <code>.copy()</code> <mark class="highlight-teal"><strong>devuelve una copia </strong></mark>de la <strong>lista especificada</strong>.</li></ul><h2 id="da1a8a9c-cc67-4cfe-a1b9-389cff935c3e" class="">Tuplas</h2><p id="eab641de-c50e-4d82-94ec-adfa931cb338" class="">A pesar de que las <strong>tuplas </strong>puedan <mark class="highlight-teal"><strong>parecerse a las listas</strong></mark>, frecuentemente se utilizan en <strong>distintas situaciones </strong>y para <strong>distintos propósitos</strong>. Las tuplas son <mark class="highlight-teal"><strong>immutable </strong></mark>y normalmente contienen una <strong>secuencia heterogénea de elementos </strong>que son accedidos al desempaquetar o <strong>indizar</strong>. Las listas <mark class="highlight-teal"><strong>son mutable</strong></mark>, y sus elementos son <strong>normalmente homogéneos </strong>y se acceden <mark class="highlight-teal"><strong>iterando a la lista</strong></mark>.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="fe9b42a9-3a6f-499d-b72d-8adcc72d35a3" class="code"><code class="language-Python">thistuple = (&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;)
+print(thistuple)</code></pre><h2 id="9e567093-377e-4d56-ba21-1ae37155f201" class="">Diccionarios</h2><p id="3822e588-f0ac-44b3-8af4-fea27f888a1c" class="">Los <mark class="highlight-teal"><strong>diccionarios </strong></mark>se encuentran a veces en otros lenguajes como «<strong>memorias asociativas</strong>» o «<strong>arreglos asociativos</strong>». A diferencia de las secuencias, que se indexan mediante un rango numérico, los diccionarios se <mark class="highlight-teal"><strong>indexan con claves</strong></mark>, que pueden ser <strong>cualquier tipo inmutable</strong>; <mark class="highlight-teal"><strong>las cadenas </strong></mark>y <mark class="highlight-teal"><strong>números </strong></mark>siempre pueden ser claves. Las <strong>tuplas pueden usarse como claves </strong>si solamente contienen <strong>cadenas, números o tuplas</strong>; si una tupla contiene cualquier objeto <mark class="highlight-teal"><strong>mutable directa o indirectamente</strong></mark>, <strong>no puede usarse como clave</strong>.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3c44ed19-fe8e-4a12-b1e0-8c6bbe914e95" class="code"><code class="language-Python">thisdict = {
+  &quot;brand&quot;: &quot;Ford&quot;,
+  &quot;model&quot;: &quot;Mustang&quot;,
+  &quot;year&quot;: 1964
+}</code></pre><h3 id="3a90368d-2306-4092-9720-038636ae069b" class=""><mark class="highlight-purple">Métodos </mark>para los diccionarios</h3><div id="449adde2-9471-4f6b-89cd-e878dd8f4214" class="column-list"><div id="6126cbae-47d4-4702-bf11-76e70a4622b3" style="width:50%" class="column"><ul id="7a7ec24d-99f5-4aec-b0a4-04e4c4690878" class="bulleted-list"><li style="list-style-type:disc"><code><strong>dictionary.keys()</strong></code>: El método <code>.keys()</code> devuelve un <strong>objeto de vista</strong>. El objeto de vista <mark class="highlight-teal"><strong>contiene las claves del diccionario</strong></mark>, <strong>como una lista</strong>.</li></ul></div><div id="cdedb46a-6012-4ba3-afdc-1b5c7ddec95f" style="width:50%" class="column"><ul id="d2836987-c333-499b-a0fb-0ffadfb449dc" class="bulleted-list"><li style="list-style-type:disc">dictionary.values(): El método <code>.values()</code> devuelve un <strong>objeto de vista</strong>. El objeto de vista <mark class="highlight-teal"><strong>contiene los valores del diccionario</strong></mark>, <strong>como una lista</strong>.</li></ul></div></div><ul id="48cbf087-9793-4cd0-9bc0-411721b81b78" class="bulleted-list"><li style="list-style-type:disc"><code><strong>dictionary.items()</strong></code>: El método <code>.items()</code> devuelve un <strong>objeto de vista</strong>. El objeto de vista <mark class="highlight-teal"><strong>contiene los pares clave-valor del diccionario</strong></mark>, como <strong>tuplas </strong>en <mark class="highlight-teal"><strong>una lista</strong></mark>.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
