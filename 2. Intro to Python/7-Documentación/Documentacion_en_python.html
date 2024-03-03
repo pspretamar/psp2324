@@ -1,0 +1,780 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>📝 Documentación de código en Python</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="78808a62-a9f8-4f44-85b0-7fdc3c83bf1c" class="page sans"><header><h1 class="page-title"><a href="https://edgeservices.bing.com/edgesvc/chat?udsframed=1&amp;form=SHORUN&amp;clientscopes=chat,noheader,udsedgeshop,channelstable,ntpquery,udsinwin11,udsdlpconsent,udsfrontload,cspgrd,&amp;shellsig=c244ff4d06d767a1375c570dbb245da76ebb112f&amp;setlang=es&amp;darkschemeovr=1#sjevt%7CDiscover.Chat.SydneyClickPageCitation%7Cadpclick%7C0%7Cb37f199d-5329-4806-b4c1-d929bf37fd09%7C%7B%22sourceAttributions%22%3A%7B%22providerDisplayName%22%3A%22Recommende...%22%2C%22pageType%22%3A%22html%22%2C%22pageIndex%22%3A1%2C%22relatedPageUrl%22%3A%22https%253A%252F%252Frealpython.com%252Fdocumenting-python-code%252F%22%2C%22lineIndex%22%3A121%2C%22highlightText%22%3A%22Recommended%20Video%20Course%3A%20Documenting%20Python%20Code%3A%20A%20Complete%20Guide%22%2C%22snippets%22%3A%5B%5D%7D%7D"><strong>📝 Documentación de código en Python</strong></a></h1><p class="page-description"></p></header><div class="page-body"><p id="ac85ba72-191e-4bdc-80da-42cc7c0c9aaa" class="">
+</p><h2 id="1afd898c-bd56-41cb-b3dd-5b5c71945245" class=""><strong>Por qué documentar tu código es tan importante</strong></h2><p id="d53a7851-cbec-4186-8094-1b0b4094b942" class="">Como dijo Guido van Rossum, el creador de Python:</p><blockquote id="af271fa0-190f-4330-ac72-efb968eb0558" class="">“El código se lee más a menudo que se escribe”.</blockquote><p id="3abbcdc3-fba5-4c60-958d-544f9f14394d" class="">Cuando escribes código, lo haces para dos públicos principales: tus usuarios y tus desarrolladores (incluyéndote a ti mismo).</p><p id="43e3b0c7-a299-4f55-9422-a8a6f556dc0b" class="">Daniele Procida lo resumió muy bien:</p><blockquote id="c4f5dfab-1717-4ec1-b7eb-ac8dd92621ca" class="">“No importa lo bueno que sea tu software, porque si la documentación no es lo suficientemente buena, la gente no lo usará”.</blockquote><h2 id="ed20d577-d1a8-4946-9bfd-8a7f9dbd4b37" class=""><strong>Comentar vs documentar código</strong></h2><p id="2cd7797e-3274-4a8f-9cb4-7e59fa7a789f" class="">En general, comentar es describir tu código a/para los desarrolladores. El público principal son los mantenedores y desarrolladores del código en Python. En conjunto con un código bien escrito, los comentarios ayudan a guiar al lector para que entienda mejor tu código y su propósito y diseño:</p><blockquote id="19b27a0c-141b-4f25-930b-1a6aac96977c" class="">“El código te dice cómo; los comentarios te dicen por qué”.</blockquote><p id="f09143e6-3720-478d-9d33-06a9ce4c5123" class="">Documentar el código es describir su uso y funcionalidad a tus usuarios. Aunque puede ser útil en el proceso de desarrollo, el público principal son los usuarios. La siguiente sección describe cómo y cuándo comentar tu código.</p><h2 id="3239aea6-942f-47ce-ae2d-2040de343352" class="">Comentar código</h2><p id="e4c9000c-e4a4-4f4d-ba31-a95a991df386" class="">Los comentarios se crean en Python usando el signo de almohadilla ( #) y deben ser declaraciones breves que no superen unas pocas f<a href="https://edgeservices.bing.com/edgesvc/chat?udsframed=1&amp;form=SHORUN&amp;clientscopes=chat,noheader,udsedgeshop,channelstable,ntpquery,udsinwin11,udsdlpconsent,udsfrontload,cspgrd,&amp;shellsig=c244ff4d06d767a1375c570dbb245da76ebb112f&amp;setlang=es&amp;darkschemeovr=1#sjevt%7CDiscover.Chat.SydneyClickPageCitation%7Cadpclick%7C5%7Cb37f199d-5329-4806-b4c1-d929bf37fd09%7C%7B%22sourceAttributions%22%3A%7B%22providerDisplayName%22%3A%22Comments%20a...%22%2C%22pageType%22%3A%22html%22%2C%22pageIndex%22%3A1%2C%22relatedPageUrl%22%3A%22https%253A%252F%252Frealpython.com%252Fdocumenting-python-code%252F%22%2C%22lineIndex%22%3A20%2C%22highlightText%22%3A%22Comments%20are%20created%20in%20Python%20using%20the%20pound%20sign%20(%20%23)%20and%20should%20be%20brief%20statements%20no%20longer%20than%20a%20few%20sentences.%22%2C%22snippets%22%3A%5B%5D%7D%7D">rases6</a>. Aquí hay un ejemplo simple:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="e9f42d2d-172b-43f4-a23d-cc08c983534c" class="code"><code class="language-Python"># This is a comment</code></pre><p id="8e094be7-ee83-438a-a69a-57be4debb8e9" class="">Según PEP 8, los comentarios deben tener una longitud máxima de 72 caracteres. Esto es cierto incluso si tu proyecto cambia la longitud máxima de línea a más de los 80 caracteres recomendados. Si un comentario va a ser mayor que el límite de caracteres de comentario, se puede usar varias líneas para el comentario:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="cd47d7a8-a9ee-44d5-b753-5d0716009aa4" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all"># This is a long comment
+# and it should be wrapped
+# to fit within 72 characters.</code></pre><p id="c732b2cc-40a7-4a15-a2a8-783e995203df" class="">Comentar tu código sirve para varios propósitos, entre ellos:</p><ul id="4ac9457d-7545-44da-9816-df9c911baa70" class="bulleted-list"><li style="list-style-type:disc">Planificación y revisión: Cuando estás desarrollando nuevas partes de tu código, puede ser apropiado usar primero los comentarios como una forma de planificar o esbozar esa sección de código. Recuerda eliminar estos comentarios una vez que hayas implementado y revisado/testeado el código real:</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f2dadb2f-5a78-48b9-9c63-18738a185638" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all"># TODO: Implement this function
+def foo():
+    pass</code></pre><p id="c98808ca-9763-4046-88d5-3c3814737791" class="">• Descripción del código: Los comentarios se pueden usar para explicar la intención de secciones específicas de código:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="70af97a9-070e-4294-af5d-988fad5bb610" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all"># Check if the value is positive
+if x &gt; 0:
+    # Do something
+    pass</code></pre><p id="efb14f9a-1168-4a8d-99b7-535191b25077" class="">• Descripción algorítmica: Cuando se usan algoritmos, especialmente los complicados, puede ser útil explicar cómo funciona el algoritmo o cómo se implementa dentro de tu código. También puede ser apropiado describir por qué se eligió un algoritmo específico sobre otro.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="04e596b9-986b-41f8-ba2b-463cd54f9330" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all"># Use a linear search algorithm to find the index of the target value
+def linear_search(array, target):
+    for i in range(len(array)):
+        # Check if the current element matches the target value
+        if array[i] == target:
+            # Return the index of the element
+            return i
+    # Return -1 if the target value is not in the array
+    return -1</code></pre><p id="9bef724a-7136-4cf9-8e6e-45d546010c8c" class="">• Etiquetado: El uso de etiquetas se puede usar para marcar secciones específicas de código donde hay problemas conocidos o áreas de mejora. Algunos ejemplos son: BUG, FIXME y TODO.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="baec6229-0934-4f7f-bed9-63ff6e9c96fb" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all"># FIXME: This function is too slow, need to optimize it
+def slow_function():
+    # Do something slow
+    pass</code></pre><p id="4b51650d-6b48-4049-a51b-dd0077c8dda1" class="">Los comentarios a tu código deben ser breves y centrados. Evita usar comentarios largos cuando sea posible.</p><h3 id="0e6be86a-d661-4c16-9a84-a79c56e92bec" class=""><strong><strong>Comentando código via Type Hinting</strong></strong></h3><p id="0800fcfa-40b6-4fbc-895a-e7608fafe063" class="">El tipado de tipos se añadió a Python 3.5 y es una forma adicional de ayudar a los lectores de tu código14. De hecho, te permite diseñar y explicar partes de tu código sin comentar. Aquí hay un ejemplo rápido:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="266f6930-14e1-4a7c-aa9e-f94f23d49c2f" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">def say_hello(name: str) -&gt; str:
+    return f&quot;Hello {name}&quot;</code></pre><p id="9ef09f5e-9a38-487e-af39-dcfc01032600" class="">Al examinar el tipado de tipos, puedes saber inmediatamente que la función espera que el nombre de entrada sea de tipo str, o cadena. También puedes saber que la salida esperada de la función será de tipo str, o cadena, también. Aunque el tipado de tipos ayuda a reducir los comentarios, ten en cuenta que hacerlo también puede suponer un trabajo extra cuando creas o actualizas la documentación de tu proyecto.</p><h2 id="3094997b-5640-498f-817c-92c383cfb243" class="">Documentar código</h2><p id="94656017-cf37-4f54-9dbc-323bfa5ebad1" class="">La documentación del código se enfoca en el usuario, no tanto en el desarrollador. Por ejemplo, cuando quieres utilizar una librería - y no desarrollarla - necesitas comprender cómo se utiliza. Para ello, es clave que haya una buena documentación. </p><p id="ff874c44-e31d-4767-8483-d0495dc1df16" class=""><strong>📝 Docstrings en Python</strong></p><p id="6bce544d-e509-4d28-bb4e-e244fe17cde7" class="">Los <strong>docstrings</strong> son una forma de documentar tu código directamente en el propio archivo fuente. Estas cadenas de texto se encuentran en la parte superior de un módulo, clase, función o método, y proporcionan información útil para los usuarios y otros desarrolladores.</p><h3 id="dcd4f570-ec18-4faa-8352-277599d6d34d" class="">Tipos de docstrings</h3><ol type="1" id="349810a1-c107-44f3-8835-3b88f902fed4" class="numbered-list" start="1"><li><strong>Docstrings de módulo</strong>: Se encuentran al principio de un archivo de módulo y describen el propósito general del módulo.</li></ol><ol type="1" id="1cba8810-5c02-4561-bb1e-a52ed90df04d" class="numbered-list" start="2"><li><strong>Docstrings de clase</strong>: Se encuentran al principio de una clase y describen la funcionalidad de la clase.</li></ol><ol type="1" id="9c539fd5-1899-44a5-8944-ec1cb7e8c92a" class="numbered-list" start="3"><li><strong>Docstrings de función o método</strong>: Se encuentran al principio de una función o método y explican su uso y parámetros.</li></ol><p id="2d67a31a-8246-495e-8146-71a220cacd55" class="">Ejemplo:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="d00ef234-6a8e-418d-bb6c-21ba42a39da8" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">def calcular_promedio(valores):
+    &quot;&quot;&quot;
+    Calcula el promedio de una lista de valores numéricos.
+
+    Args:
+        valores (list): Una lista de números.
+
+    Returns:
+        float: El promedio de los valores.
+    &quot;&quot;&quot;
+    total = sum(valores)
+    promedio = total / len(valores)
+    return promedio</code></pre><p id="924d8c02-86b4-468d-95a1-529e16ccde11" class="">En este ejemplo:</p><ul id="54f41012-a628-47ca-bcb1-bd95509f83df" class="bulleted-list"><li style="list-style-type:disc">La primera línea es un resumen conciso de lo que hace la función.</li></ul><ul id="b77e98de-281c-4d76-a801-63269d6c6966" class="bulleted-list"><li style="list-style-type:disc">La sección <code><strong>Args</strong></code> describe los argumentos que la función espera.</li></ul><ul id="c7c57e99-5b37-4879-a4e5-d9e733c5b695" class="bulleted-list"><li style="list-style-type:disc">La sección <code><strong>Returns</strong></code> especifica el tipo de valor que devuelve la función.</li></ul><h2 id="ea5e7a4d-7ebe-4a7a-bd2e-62e0e353cb8a" class=""><strong>Sintaxis de los Docstrings</strong></h2><p id="6b1212ed-41ed-4f3b-8cfa-85edb85a3ddf" class="">Existen varios estilos de Docstrings, como el de una sola línea (<code><strong>&quot;&quot;&quot; Una línea de documentación &quot;&quot;&quot;</strong></code>) y el de varias líneas (triple comilla). El estilo de Docstrings que uses dependerá de tus preferencias y de las convenciones de estilo de tu proyecto.</p><p id="fe120b2f-457e-4bac-8cfd-39e452b235d1" class="">Para una función:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="0c80628b-b56b-4156-b14b-c03a27e7ff00" class="code"><code class="language-Python">def nombre_funcion(parametro1, parametro2):
+	&quot;&quot;&quot;
+	Descripción de la función.
+	:param parametro1: Descripción del primer parámetro.
+	:param parametro2: Descripción del segundo parámetro.
+	:return: Descripción del valor de retorno.
+	&quot;&quot;&quot;
+	# Cuerpo de la función
+	pass</code></pre><p id="77e721bd-eee5-49c8-9961-b243e3de174a" class="">Para una clase:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="25c2a666-221d-47c2-a914-60b39f054cd2" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">class Animal:
+    &quot;&quot;&quot;
+    A class used to represent an Animal
+
+    ...
+
+    Attributes
+    ----------
+    says_str : str
+        a formatted string to print out what the animal says
+    name : str
+        the name of the animal
+    sound : str
+        the sound that the animal makes
+    num_legs : int
+        the number of legs the animal has (default 4)
+
+    Methods
+    -------
+    says(sound=None)
+        Prints the animals name and what sound it makes
+    &quot;&quot;&quot;
+
+    says_str = &quot;A {name} says {sound}&quot;
+
+    def __init__(self, name, sound, num_legs=4):
+        &quot;&quot;&quot;
+        Parameters
+        ----------
+        name : str
+            The name of the animal
+        sound : str
+            The sound the animal makes
+        num_legs : int, optional
+            The number of legs the animal (default is 4)
+        &quot;&quot;&quot;
+
+        self.name = name
+        self.sound = sound
+        self.num_legs = num_legs
+
+    def says(self, sound=None):
+        &quot;&quot;&quot;Prints what the animals name is and what sound it makes.
+
+        If the argument `sound` isn&#x27;t passed in, the default Animal
+        sound is used.
+
+        Parameters
+        ----------
+        sound : str, optional
+            The sound the animal makes (default is None)
+
+        Raises
+        ------
+        NotImplementedError
+            If no sound is set for the animal or passed in as a
+            parameter.
+        &quot;&quot;&quot;
+
+        if self.sound is None and sound is None:
+            raise NotImplementedError(&quot;Silent Animals are not supported!&quot;)
+
+        out_sound = self.sound if sound is None else sound
+        print(self.says_str.format(name=self.name, sound=out_sound))</code></pre><h3 id="38e9b407-0332-4ddd-a9d1-26ad49368cca" class="">¿Cómo acceder a los docstrings?</h3><p id="251996c0-965a-4c67-9cf2-10763fe7aa88" class="">Puedes acceder a los docstrings de varias maneras:</p><ul id="129e9b4e-1244-446f-9414-afd7c79eba0a" class="bulleted-list"><li style="list-style-type:disc">Mediante la función <code><strong>help()</strong></code> en la consola de Python.</li></ul><ul id="02ad464f-4f32-4aad-8dac-f4b82e2af5b4" class="bulleted-list"><li style="list-style-type:disc">Usando la herramienta <code><strong>pydoc</strong></code> desde la línea de comandos.</li></ul><ul id="fc3f12d3-bbc0-413f-96a6-26a0b4601a12" class="bulleted-list"><li style="list-style-type:disc">Consultando la documentación en línea generada automáticamente.</li></ul><p id="2f9f7c67-730b-4102-8994-9bb099df0e86" class="">En resumen, los docstrings son una excelente práctica para mantener tu código bien documentado y comprensible. ¡Asegúrate de incluirlos en tus proyectos Python! 📚🐍</p><h2 id="13fdefef-6d16-4fd4-80d7-42e821921dc1" class=""><strong>Principios de Documentación con Docstrings</strong></h2><ol type="1" id="a30e2609-d320-4eb5-974c-5e4b52847b8b" class="numbered-list" start="1"><li><strong>Brevedad y claridad</strong>: Ser conciso pero informativo.</li></ol><ol type="1" id="cd9b013f-179f-4dc0-bf39-878a427b61b3" class="numbered-list" start="2"><li><strong>Explicar el propósito</strong>: Describir qué hace la función o método.</li></ol><ol type="1" id="e0010bc5-2cca-4c2c-90c3-eaab86f5fcf1" class="numbered-list" start="3"><li><strong>Detalles de parámetros y valores de retorno</strong>: Documentar los parámetros que recibe la función y qué devuelve.</li></ol><ol type="1" id="0d78a9ad-5021-4fbb-a5b7-9d32f0942b2a" class="numbered-list" start="4"><li><strong>Ejemplos y casos de uso</strong>: Proporcionar ejemplos de uso de la función cuando sea posible.</li></ol><p id="a15c71e9-bb11-43b2-bfd4-67e0c3a119fd" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
